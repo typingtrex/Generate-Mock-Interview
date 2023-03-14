@@ -10,26 +10,32 @@ class PairingMockInterview {
 
   choosePerson() {
     let totalPeople = this.allParticipants.length;
-    const index1 = Math.floor(Math.random() * totalPeople);
-    const person1 = this.allParticipants[index1];
-    // change position of person1 to the back to remove with pop for O1 time
-    [[this.allParticipants[index1]], [this.allParticipants[totalPeople - 1]]] =
-      [[this.allParticipants[totalPeople - 1]], [this.allParticipants[index1]]];
-    // remove person1
+    const index = Math.floor(Math.random() * totalPeople);
+    const person = this.allParticipants[index];
+    // change position of person to the back to remove with pop for O1 time
+    [[this.allParticipants[index]], [this.allParticipants[totalPeople - 1]]] = [
+      [this.allParticipants[totalPeople - 1]],
+      [this.allParticipants[index]],
+    ];
+    // remove person
     this.allParticipants.pop();
-    return person1;
+    return person;
   }
 
   generatePairings() {
-    // let totalPeople = this.allParticipants.length;
+    // can check length up here if mod 2
+    // for odd people - give heads up
+
     while (this.allParticipants.length) {
       const person1 = this.choosePerson();
+      // in case there are an odd number of participants
       let person2 = null;
       if (this.allParticipants.length) {
         person2 = this.choosePerson();
       }
 
       this.pairings.push([person1, person2]);
+      // add alert if person2 is null
     }
     return this.pairings;
   }
